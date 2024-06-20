@@ -1,0 +1,7 @@
+# Ignore the generated project directory
+../projects/
+
+# Ignore other files/directories as needed
+*.pyc
+__pycache__/
+.env
