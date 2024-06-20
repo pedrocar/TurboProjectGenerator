@@ -101,8 +101,12 @@ def main():
     with open(config_path, 'r') as config_file:
         config_data = json.load(config_file)
     
+    # Set GitHub token as an environment variable for authentication
+    os.environ['GITHUB_TOKEN'] = config_data['github']['token']
+    
     steps = [
         (1, [
+            ["cd", "projects"],
             ["mkdir", "-p", config_data['common']['folder_name']],
             ["cd", config_data['common']['folder_name']],
             [
@@ -138,12 +142,14 @@ def main():
                 f"custom_drf_model_view_set={config_data['backend']['custom_drf_model_view_set']}",
                 f"license={config_data['backend']['license']}"
             ],
+            ["cd", ".."],
             ["cd", ".."]
         ]),
         (2, [
             #TODO: build and test backend project
         ]),
         (3, [
+            ["cd", "projects"],
             ["cd", config_data['common']['folder_name']],
             [
                 "npx",
@@ -157,13 +163,23 @@ def main():
                 "--import-alias" if config_data['frontend']['use_custom_import_alias'] == "y" else "--no-import-alias",
                 config_data['frontend']['custom_import_alias'] if config_data['frontend']['custom_import_alias'] != "None" else "",
             ],
+            ["cd", ".."],
             ["cd", ".."]
         ]),
         (4, [
             #TODO: build and test frontend project
         ]),
         (5, [
-            # ["echo", "GitHub repository created"]
+            ["cd", "projects"],
+            ["cd", config_data['common']['folder_name']],
+            ["rm", "-rf", ".git"],
+            ["git", "init"],
+            ["git", "add", "."],
+            ["git", "commit", "-m", "Initial commit"],
+            ["gh", "repo", "create", f"{config_data['github']['username']}/{config_data['github']['repository_name']}", "--public", "--source=.", "--remote=origin"],
+            ["git", "push", "-u", "origin", "master"],
+            ["cd", ".."],
+            ["cd", ".."]
         ]),
         (6, [
             # ["echo", "Terraform config applied"]

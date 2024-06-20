@@ -16,6 +16,7 @@ Ensure the following are installed locally before running this project:
 4. **Docker**: Containerization platform
 5. **Docker Compose**: Tool for defining and running multi-container Docker applications
 6. **Cookiecutter**: A command-line utility that creates projects from project templates
+7. **Gh**: Github client
 
 ## Setup Instructions
 

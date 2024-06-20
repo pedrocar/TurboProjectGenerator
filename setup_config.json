@@ -41,5 +41,10 @@
         "use_drf": "y",
         "custom_drf_model_view_set": "y",
         "license": "MIT"
+    },
+    "github": {
+        "username": "pedrocar",
+        "repository_name": "example_repository",
+        "token": "your_github_token"
     }
 }
