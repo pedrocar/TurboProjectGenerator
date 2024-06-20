@@ -1,5 +1,5 @@
 # Ignore the generated project directory
-../projects/
+/projects/**
 
 # Ignore other files/directories as needed
 *.pyc
